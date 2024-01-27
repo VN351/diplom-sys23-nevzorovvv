@@ -83,6 +83,14 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 ### Сеть
 Разверните один VPC. Сервера web, Elasticsearch поместите в приватные подсети. Сервера Zabbix, Kibana, application load balancer определите в публичную подсеть.
+## Полная карта сети
+
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/network_map.png)
+
+subnet-1 сеть для web-server-1 (толко private IP)
+subnet-2 сеть для web-server-2 (толко private IP)
+subnet-3 сеть для elasticserch (толко private IP)
+subnet-4 сеть для Zabbix, Kibana, Bastion host (помимо private IP имеют global IP)
 
 Настройте [Security Groups](https://cloud.yandex.com/docs/vpc/concepts/security-groups) соответствующих сервисов на входящий трафик только к нужным портам.
 
@@ -90,11 +98,6 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 Настройте ВМ с публичным адресом, в которой будет открыт только один порт — ssh.  Эта вм будет реализовывать концепцию  [bastion host]( https://cloud.yandex.ru/docs/tutorials/routing/bastion) . Синоним "bastion host" - "Jump host". Подключение  ansible к серверам web и Elasticsearch через данный bastion host можно сделать с помощью  [ProxyCommand](https://docs.ansible.com/ansible/latest/network/user_guide/network_debug_troubleshooting.html#network-delegate-to-vs-proxycommand) . Допускается установка и запуск ansible непосредственно на bastion host.(Этот вариант легче в настройке)
 
-Настройка VM происходила с локального ПК через bastion host с использованием команды 
-
-ansible-playbook -i ./inventory.ini playbook.yml -u vlad --ssh-common-args='-o ProxyJump=vlad@158.160.135.116'
-
-![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/ansible.png)
 
 ### Резервное копирование
 Создайте snapshot дисков всех ВМ. Ограничьте время жизни snaphot в неделю. Сами snaphot настройте на ежедневное копирование.
@@ -106,7 +109,12 @@ ansible-playbook -i ./inventory.ini playbook.yml -u vlad --ssh-common-args='-o P
 ![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/vm.png)
 
 ## [Конфигурация Terraform](https://github.com/VN351/diplom-sys23-nevzorovvv/tree/main/terraform)
-## [Конфигурация Ansible](https://github.com/VN351/diplom-sys23-nevzorovvv/tree/main/ansible)
 
+## [Конфигурация Ansible](https://github.com/VN351/diplom-sys23-nevzorovvv/tree/main/ansible)
+Настройка VM происходила с локального ПК через bastion host с использованием команды 
+
+ansible-playbook -i ./inventory.ini playbook.yml -u vlad --ssh-common-args='-o ProxyJump=vlad@158.160.135.116'
+
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/ansible.png)
  
 
