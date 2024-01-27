@@ -26,38 +26,38 @@
 
 Ознакомьтесь со всеми пунктами из этой секции, не беритесь сразу выполнять задание, не дочитав до конца. Пункты взаимосвязаны и могут влиять друг на друга.
 
-![alt text](https://github.com/VN351/Diplom_sys23_NevzorovVV/raw/main/img/VM_specs.png)
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/VM_specs.png)
 
 ### Сайт
 Сайт - http://158.160.144.8:80 
-![alt text](https://github.com/VN351/Diplom_sys23_NevzorovVV/raw/main/img/Web_site.png)
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/Web_site.png)
 
 Создайте две ВМ в разных зонах, установите на них сервер nginx, если его там нет. ОС и содержимое ВМ должно быть идентичным, это будут наши веб-сервера.
 
-![alt text](https://github.com/VN351/Diplom_sys23_NevzorovVV/raw/main/img/web_servers_network_map.png)
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/web_servers_network_map.png)
 
 Используйте набор статичных файлов для сайта. Можно переиспользовать сайт из домашнего задания.
 
 Создайте [Target Group](https://cloud.yandex.com/docs/application-load-balancer/concepts/target-group), включите в неё две созданных ВМ.
 
-![alt text](https://github.com/VN351/Diplom_sys23_NevzorovVV/raw/main/img/target.png)
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/target.png)
 
 Создайте [Backend Group](https://cloud.yandex.com/docs/application-load-balancer/concepts/backend-group), настройте backends на target group, ранее созданную. Настройте healthcheck на корень (/) и порт 80, протокол HTTP.
 
-![alt text](https://github.com/VN351/Diplom_sys23_NevzorovVV/raw/main/img/backend.png)
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/backend.png)
 
 Создайте [HTTP router](https://cloud.yandex.com/docs/application-load-balancer/concepts/http-router). Путь укажите — /, backend group — созданную ранее.
 
-![alt text](https://github.com/VN351/Diplom_sys23_NevzorovVV/raw/main/img/router.png)
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/router.png)
 
 Создайте [Application load balancer](https://cloud.yandex.com/en/docs/application-load-balancer/) для распределения трафика на веб-сервера, созданные ранее. Укажите HTTP router, созданный ранее, задайте listener тип auto, порт 80.
 
-![alt text](https://github.com/VN351/Diplom_sys23_NevzorovVV/raw/main/img/alb.png)
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/alb.png)
 
 Протестируйте сайт
 `curl -v <публичный IP балансера>:80` 
 
-![alt text](https://github.com/VN351/Diplom_sys23_NevzorovVV/raw/main/img/curl.png)
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/curl.png)
 
 ### Мониторинг
 Создайте ВМ, разверните на ней Zabbix. На каждую ВМ установите Zabbix Agent, настройте агенты на отправление метрик в Zabbix. 
@@ -69,14 +69,14 @@
 login: netology
 pass: diplomsys23
 
-![alt text](https://github.com/VN351/Diplom_sys23_NevzorovVV/raw/main/img/zabbix.png)
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/zabbix.png)
 
 ### Логи
 Cоздайте ВМ, разверните на ней Elasticsearch. Установите filebeat в ВМ к веб-серверам, настройте на отправку access.log, error.log nginx в Elasticsearch.
 
 Создайте ВМ, разверните на ней Kibana, сконфигурируйте соединение с Elasticsearch.
 
-![alt text](https://github.com/VN351/Diplom_sys23_NevzorovVV/raw/main/img/Kibana.png)
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/Kibana.png)
 
 [Kibana](http://158.160.140.26:5601)
 
@@ -85,7 +85,7 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 Настройте [Security Groups](https://cloud.yandex.com/docs/vpc/concepts/security-groups) соответствующих сервисов на входящий трафик только к нужным портам.
 
-![alt text](https://github.com/VN351/Diplom_sys23_NevzorovVV/raw/main/img/sg.png)
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/sg.png)
 
 Настройте ВМ с публичным адресом, в которой будет открыт только один порт — ssh.  Эта вм будет реализовывать концепцию  [bastion host]( https://cloud.yandex.ru/docs/tutorials/routing/bastion) . Синоним "bastion host" - "Jump host". Подключение  ansible к серверам web и Elasticsearch через данный bastion host можно сделать с помощью  [ProxyCommand](https://docs.ansible.com/ansible/latest/network/user_guide/network_debug_troubleshooting.html#network-delegate-to-vs-proxycommand) . Допускается установка и запуск ansible непосредственно на bastion host.(Этот вариант легче в настройке)
 
@@ -93,12 +93,12 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 ansible-playbook -i ./inventory.ini playbook.yml -u vlad --ssh-common-args='-o ProxyJump=vlad@158.160.135.116'
 
-![alt text](https://github.com/VN351/Diplom_sys23_NevzorovVV/raw/main/img/ansible.png)
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/ansible.png)
 
 ### Резервное копирование
 Создайте snapshot дисков всех ВМ. Ограничьте время жизни snaphot в неделю. Сами snaphot настройте на ежедневное копирование.
 
-![alt text](https://github.com/VN351/Diplom_sys23_NevzorovVV/raw/main/img/snapshot.png)
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/snapshot.png)
 
 
 
