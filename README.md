@@ -66,7 +66,7 @@
 
 Настройте дешборды с отображением метрик, минимальный набор — по принципу USE (Utilization, Saturation, Errors) для CPU, RAM, диски, сеть, http запросов к веб-серверам. Добавьте необходимые tresholds на соответствующие графики.
 
-## [Zabbix](http://158.160.143.96:8080)
+## [Zabbix](http://158.160.143.73:8080)
 
 login: netology
 pass: diplomsys23
@@ -78,7 +78,7 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 Создайте ВМ, разверните на ней Kibana, сконфигурируйте соединение с Elasticsearch.
 
-## [Kibana](http://158.160.140.26:5601)
+## [Kibana](http://158.160.131.235:5601)
 
 ![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/Kibana.png)
 
