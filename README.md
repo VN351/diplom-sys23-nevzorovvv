@@ -29,7 +29,10 @@
 ![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/VM_specs.png)
 
 ### Сайт
-Сайт - http://158.160.144.8:80 
+## Ссылка на сайт
+
+http://158.160.144.8:80 
+
 ![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/Web_site.png)
 
 Создайте две ВМ в разных зонах, установите на них сервер nginx, если его там нет. ОС и содержимое ВМ должно быть идентичным, это будут наши веб-сервера.
@@ -77,10 +80,11 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 Создайте ВМ, разверните на ней Kibana, сконфигурируйте соединение с Elasticsearch.
 
-![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/Kibana.png)
-
 ## Ссылка на kibana
 [Kibana](http://158.160.140.26:5601)
+
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/Kibana.png)
+
 
 ### Сеть
 Разверните один VPC. Сервера web, Elasticsearch поместите в приватные подсети. Сервера Zabbix, Kibana, application load balancer определите в публичную подсеть.
@@ -102,5 +106,12 @@ ansible-playbook -i ./inventory.ini playbook.yml -u vlad --ssh-common-args='-o P
 
 ![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/snapshot.png)
 
+## Все VM
 
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/vm.png)
+
+## [Конфигурация Terraform](https://github.com/VN351/diplom-sys23-nevzorovvv/tree/main/terraform)
+## [Конфигурация Ansible](https://github.com/VN351/diplom-sys23-nevzorovvv/tree/main/ansible)
+
+ 
 
