@@ -22,16 +22,14 @@
 
 Важно: используйте по-возможности **минимальные конфигурации ВМ**:2 ядра 20% Intel ice lake, 2-4Гб памяти, 10hdd, прерываемая. 
 
+![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/VM_specs.png)
+
 **Так как прерываемая ВМ проработает не больше 24ч, перед сдачей работы на проверку дипломному руководителю сделайте ваши ВМ постоянно работающими.**
 
 Ознакомьтесь со всеми пунктами из этой секции, не беритесь сразу выполнять задание, не дочитав до конца. Пункты взаимосвязаны и могут влиять друг на друга.
 
-![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/VM_specs.png)
-
 ### Сайт
-## Ссылка на сайт
-
-http://158.160.144.8:80 
+## [Ссылка на сайт](http://158.160.144.8:80)
 
 ![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/Web_site.png)
 
@@ -67,8 +65,7 @@ http://158.160.144.8:80
 
 Настройте дешборды с отображением метрик, минимальный набор — по принципу USE (Utilization, Saturation, Errors) для CPU, RAM, диски, сеть, http запросов к веб-серверам. Добавьте необходимые tresholds на соответствующие графики.
 
-## Ссылка на zabbix
-[Zabbix](http://158.160.143.96:8080)
+## [Zabbix](http://158.160.143.96:8080)
 
 login: netology
 pass: diplomsys23
@@ -80,11 +77,9 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 Создайте ВМ, разверните на ней Kibana, сконфигурируйте соединение с Elasticsearch.
 
-## Ссылка на kibana
-[Kibana](http://158.160.140.26:5601)
+## [Kibana](http://158.160.140.26:5601)
 
 ![alt text](https://github.com/VN351/diplom-sys23-nevzorovvv/raw/main/img/Kibana.png)
-
 
 ### Сеть
 Разверните один VPC. Сервера web, Elasticsearch поместите в приватные подсети. Сервера Zabbix, Kibana, application load balancer определите в публичную подсеть.
