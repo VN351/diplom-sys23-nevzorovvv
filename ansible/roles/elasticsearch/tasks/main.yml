@@ -1,0 +1,36 @@
+- name: Ping server
+  ansible.builtin.ping:
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install gnupg, apt-transport-https, java
+  ansible.builtin.apt:
+    name:
+      - gnupg
+      - apt-transport-https
+      - openjdk-8-jdk
+    state: present
+
+- name: Copy deb package to host
+  ansible.builtin.copy:
+    src: files/elasticsearch-7.17.0-amd64.deb
+    dest: /tmp/elasticsearch-7.17.0-amd64.deb
+
+- name: Install deb package
+  ansible.builtin.apt:
+    deb: /tmp/elasticsearch-7.17.0-amd64.deb
+    state: present
+
+- name: Configure Elasticsearch
+  ansible.builtin.template:
+    src: elasticsearch.yml.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+
+- name: Start and enable Elasticsearch service
+  ansible.builtin.service:
+    name: elasticsearch
+    state: started
+    enabled: yes
+  

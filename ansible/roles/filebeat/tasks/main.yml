@@ -1,0 +1,44 @@
+- name: Ping server
+  ansible.builtin.ping:
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install gnupg, apt-transport-https, java
+  ansible.builtin.apt:
+    name:
+      - gnupg
+      - apt-transport-https
+      - openjdk-8-jdk
+    state: present
+
+- name: Copying the deb package to the host
+  ansible.builtin.copy:
+    src: files/filebeat-7.17.0-amd64.deb
+    dest: /tmp/filebeat-7.17.0-amd64.deb
+
+- name: Installing the deb package
+  ansible.builtin.apt:
+    deb: /tmp/filebeat-7.17.0-amd64.deb
+    state: present
+
+- name: Set up Filebeat configuration
+  ansible.builtin.template:
+    src: filebeat.yml.j2
+    dest: /etc/filebeat/filebeat.yml
+  notify:
+    - restart filebeat
+
+- name: Configure Filebeat to enable Nginx module
+  ansible.builtin.command:
+    cmd: sudo filebeat modules enable nginx
+  notify:
+    - restart filebeat
+
+- name: Start Filebeat service
+  ansible.builtin.service:
+    name: filebeat
+    state: started
+    enabled: yes
+

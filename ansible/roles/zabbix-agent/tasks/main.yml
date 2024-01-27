@@ -1,0 +1,53 @@
+- name: Ping server
+  ansible.builtin.ping:
+
+- name: Install packages
+  become: true
+  ansible.builtin.apt:
+    state: present
+    name:
+      - tcsh
+      - htop
+
+- name: Create a directory
+  ansible.builtin.file:
+    path: /etc/zabbix-files
+    state: directory
+    mode: "0755"
+
+- name: Download the zabbix files
+  ansible.builtin.get_url:
+    url: "https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu22.04_all.deb"
+    dest: /etc/zabbix-files
+  become: true
+
+- name: Install the zabbix package
+  ansible.builtin.apt:
+    deb: /etc/zabbix-files/zabbix-release_6.4-1+ubuntu22.04_all.deb
+  become: true
+
+- name: Update apt packages
+  ansible.builtin.apt:
+    force_apt_get: true
+    update_cache: yes
+  become: true
+
+- name: Install Zabbix Agent
+  ansible.builtin.apt:
+    name: zabbix-agent
+    state: present
+
+- name: Configure Zabbix Agent
+  ansible.builtin.template:
+    src: zabbix_agentd.conf.j2
+    dest: /etc/zabbix/zabbix_agentd.conf
+    owner: zabbix
+    group: zabbix
+    mode: '0644'
+  notify: restart zabbix-agent
+
+- name: Ensure Zabbix Agent is running and enabled on boot
+  ansible.builtin.systemd:
+    name: zabbix-agent
+    state: started
+    enabled: yes

@@ -1,0 +1,10 @@
+- name: restart kibana
+  service:
+    name: kibana
+    state: restarted
+
+- name: kibana systemd
+  systemd:
+    name: kibana
+    enabled: yes
+    state: started

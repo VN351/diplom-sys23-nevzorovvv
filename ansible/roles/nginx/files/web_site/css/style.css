@@ -1,0 +1,37 @@
+@font-face {
+  font-family: "Evolventa-Regular";
+  src: url(./fonts/Evolventa-Regular.ttf);
+  }
+
+body {
+  text-align: center;
+  background-color: rgb(134, 131, 131);
+  color: rgb(72, 9, 173);
+  font-size: 2em;
+  font-family: "Evolventa-Regular";
+}
+
+p {
+  font-style: italic;
+  font-size: larger;
+}
+.button-link {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: rgb(72, 9, 173);
+  color: rgb(134, 131, 131);
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 7px;
+  transition: background-color 0.3s ease;
+  cursor: default !important;
+}
+
+.button-link:hover, .button-link:focus {
+  background-color: rgb(57, 7, 138);
+  color: rgb(107, 105, 105);
+  text-decoration: none;
+  cursor: default !important;
+}
+

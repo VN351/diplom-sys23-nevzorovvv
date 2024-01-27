@@ -1,0 +1,42 @@
+- name: Ping server
+  ansible.builtin.ping:
+
+- name: Update package
+  ansible.builtin.apt:
+    force_apt_get: true
+    update_cache: yes
+
+- name: Install nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: latest
+ 
+- name: Upload site files
+  ansible.builtin.copy:
+    src: files/web_site/
+    dest: /var/www/html
+
+- name: Create a directory
+  ansible.builtin.file:
+    path: /etc/nginx/web_site
+    state: directory
+    mode: "0755"
+
+- name: Upload custom Nginx configuration
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/web_site/nginx.conf
+  notify: restart nginx
+  
+- name: Replace index-file
+  ansible.builtin.shell: echo $(hostname | cut -d '.' -f 1) >> /var/www/html/index.html
+  args:
+    executable: /bin/bash
+  
+- name: Ensure Nginx is running and enabled on boot
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+    enabled: yes
+
+    

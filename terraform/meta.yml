@@ -1,0 +1,8 @@
+#cloud-config
+users:
+  - name: vlad
+    groups: sudo
+    shell: /bin/bash
+    sudo: 'ALL=(ALL) NOPASSWD:ALL'
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDVEcW82I1Vl3P2SLZLV5GdeWSvQnNTjrM70/A7YjiW8LEjw/LRstj5obXmrhSjvbKcogIxwhmIEQky1OZoG6b5VFCjKc0ktpSnXpqnvB9Ho6gvwcrVtGrsQMWEWvxIAnnOfeGJbTpj6irrCc6ZAaMeVPhTAbAvuv+6f5hK32gSDdmW1uvv5pWi/CGq/ejupe0y63WnqjooR67XZqpYw1ffJckEAvQa7SczsIQIgp/I6fTlHgj+VQ7QhmvQStBvMVydj+WTnWuphUfWdX0hiDNhGabJiWUtc+n2fDfZys3lIVKZY4NLx2fEdAtXFf8Jw9DlOsYaBRmq0lQvpENkOliXArX3BqRe0Q7Qe40srzJfCh4y/e8PyUoMuABZqxezb8SkZ3x5zCJd0Lf0sSQ9BASs7xzgG/Am5tOdQidKh3rEKBGPfphI35Trzv2sjIbUtHkSZMOnXS2ZSd091qN9Hqwss1BL/7VFIZKGPCApuKN6MlHafjoEbnEPrTEM+7m8/O0= vlad@Nevzorov

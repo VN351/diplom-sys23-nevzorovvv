@@ -1,0 +1,25 @@
+ # Install zabbix-server      
+- hosts: zabbix-server
+  vars_files:
+    - vars/main.yml
+  roles:
+    - zabbix-server
+
+#Install elasticsearch
+- hosts: elasticsearch
+  roles:
+    - elasticsearch
+
+#Install kibana
+- hosts: kibana
+  roles:
+    - kibana
+
+#Install nginx
+- hosts: webserver
+  roles:
+    - nginx
+    - zabbix-agent
+    - filebeat
+
+    
