@@ -1,3 +1,10 @@
+#Install nginx
+- hosts: webserver
+  roles:
+    - nginx
+    - zabbix-agent
+    - filebeat
+
  # Install zabbix-server      
 - hosts: zabbix-server
   vars_files:
@@ -15,11 +22,5 @@
   roles:
     - kibana
 
-#Install nginx
-- hosts: webserver
-  roles:
-    - nginx
-    - zabbix-agent
-    - filebeat
 
     
